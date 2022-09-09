@@ -28,7 +28,16 @@ public class Car {
     }
 
     public void setModel(String model) {
-        this.model = model;
+        //this.model = model;
+
+        // Value Validation for Model Setter
+        String validModel = model.toLowerCase();
+        if(validModel.equals("carrera") || validModel.equals("commodore")){
+            this.model = model;
+        }
+        else {
+            this.model = "Unknown";
+        }
     }
 
     public String getEngine() {
