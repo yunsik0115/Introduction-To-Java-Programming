@@ -6,10 +6,10 @@ public class Theatre {
     private final String theatreName;
     // final -> needs to update constructor.
 
-    // private List<Seat> seats = new ArrayList<>();
+    private List<Seat> seats = new ArrayList<>();
     // private List<Seat> seats = new LinkedList<>();
     // private Collection<Seat> seats = new LinkedList<>();
-    private Collection<Seat> seats = new LinkedHashSet<>();
+    // private Collection<Seat> seats = new LinkedHashSet<>();
     // now it will be sorted in different order.
     // LinkedHashset will sort unsorted HashSet in order.
 
@@ -31,8 +31,18 @@ public class Theatre {
     }
 
     public boolean reserveSeat(String seatNumber){
-        Seat requestedSeat = null;
-        for(Seat seat : seats){
+        Seat requestedSeat = new Seat(seatNumber);
+        int foundSeat = Collections.binarySearch(seats, requestedSeat, null);
+
+        if(foundSeat >= 0){
+            System.out.println(".");
+            return seats.get(foundSeat).reserve();
+        } else{
+            System.out.println("There is no seat " + seatNumber);
+            return false;
+        }
+
+        /*for(Seat seat : seats){
             System.out.print("."); // How many Seats needs to be checked
             if(seat.getSeatNumber().equals(seatNumber)){
                 requestedSeat = seat;
@@ -45,7 +55,7 @@ public class Theatre {
             return false;
         }
 
-        return requestedSeat.reserve();
+        return requestedSeat.reserve(); */
     }
 
     // for testing
@@ -55,12 +65,17 @@ public class Theatre {
         }
     }
 
-    private class Seat{
+    private class Seat implements Comparable<Seat> {
         private final String seatNumber;
         private boolean reserved = false;
 
         public Seat(String seatNumber) {
             this.seatNumber = seatNumber;
+        }
+
+        @Override
+        public int compareTo(Seat seat) {
+            return this.seatNumber.compareToIgnoreCase(seat.getSeatNumber());
         }
 
         public boolean reserve(){
