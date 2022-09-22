@@ -1,4 +1,4 @@
-package Collections;
+package Maps;
 
 import java.util.*;
 
@@ -130,7 +130,7 @@ public class Theatre {
         public double getPrice() {
             return price;
         }
-        
+
     }
 
 }
