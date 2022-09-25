@@ -1,4 +1,4 @@
-package Maps;
+package Maps_Practice;
 
 import java.util.*;
 
